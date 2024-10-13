@@ -3,6 +3,8 @@ package br.com.bancoaura.internetbanking.entidades;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,14 +26,20 @@ public class Conta {
     private List<Transferencia> transferenciasRecebidas;
 
     @Column(nullable = false, precision = 14, scale = 2)
-    private Double saldo;
+    private BigDecimal saldo;
 
     public Conta() {
-        this.saldo = 0.0;
+        this.saldo = new BigDecimal(0);
+        this.transferenciasRecebidas = new ArrayList<Transferencia>();
+        this.transferenciasPagas = new ArrayList<>();
     }
 
     public Cliente getTitular() {
         return titular;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
     }
 
     public Conta setCliente(Cliente titular) {
@@ -39,7 +47,7 @@ public class Conta {
         return this;
     }
 
-    public Conta setSaldo(Double saldo) {
+    public Conta setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
         return this;
     }

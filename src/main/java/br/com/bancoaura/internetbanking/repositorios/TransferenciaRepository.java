@@ -1,4 +1,4 @@
-package br.com.bancoaura.internetbanking.repositories;
+package br.com.bancoaura.internetbanking.repositorios;
 
 import br.com.bancoaura.internetbanking.entidades.Transferencia;
 import org.springframework.data.jpa.repository.JpaRepository;

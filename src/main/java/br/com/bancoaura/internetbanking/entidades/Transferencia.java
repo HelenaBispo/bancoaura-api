@@ -3,6 +3,7 @@ package br.com.bancoaura.internetbanking.entidades;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,10 +24,10 @@ public class Transferencia {
     private LocalDateTime data;
 
     @Column(nullable = false, precision = 14, scale = 2)
-    private Double valor;
+    private BigDecimal valor;
 
     public Transferencia() {
-        this.valor = 0.0;
+        this.valor = new BigDecimal(0);
         this.data = LocalDateTime.now();
     }
 
@@ -46,7 +47,7 @@ public class Transferencia {
         return data;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
@@ -60,7 +61,7 @@ public class Transferencia {
         return this;
     }
 
-    public Transferencia setValor(Double valor) {
+    public Transferencia setValor(BigDecimal valor) {
         this.valor = valor;
         return this;
     }

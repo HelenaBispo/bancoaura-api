@@ -16,11 +16,16 @@ public class Cliente {
     @OneToOne(mappedBy = "titular")
     private Conta conta;
 
-    @Column(nullable = false, precision = 80)
+    @Column(nullable = false, length = 80)
     private String nome;
 
-    @Column(nullable = false, precision = 11)
+    @Column(nullable = false, length = 11, unique = true)
     private String cpf;
+
+    public Cliente setId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     public Integer getId() {
         return id;

@@ -1,10 +1,12 @@
 package br.com.bancoaura.internetbanking.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.Instant;
 
 @Entity
 public class Transferencia {
@@ -12,23 +14,35 @@ public class Transferencia {
     @UuidGenerator
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "pagante_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Conta pagante;
 
-    @ManyToOne
-    @JoinColumn(name = "beneficiario_id", nullable = false)
+    @Column(nullable = false)
+    private Integer contaPagante;
+
+    @Column(nullable = false)
+    private String nomePagante;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Conta beneficiario;
 
     @Column(nullable = false)
-    private LocalDateTime data;
+    private Integer contaBeneficiario;
+
+    @Column(nullable = false)
+    private String nomeBeneficiario;
+
+    @Column(nullable = false)
+    private Timestamp data;
 
     @Column(nullable = false, precision = 14, scale = 2)
     private BigDecimal valor;
 
     public Transferencia() {
         this.valor = new BigDecimal(0);
-        this.data = LocalDateTime.now();
+        this.data = Timestamp.from(Instant.now());
     }
 
     public String getId() {
@@ -43,7 +57,7 @@ public class Transferencia {
         return beneficiario;
     }
 
-    public LocalDateTime getData() {
+    public Timestamp getData() {
         return data;
     }
 
@@ -63,6 +77,42 @@ public class Transferencia {
 
     public Transferencia setValor(BigDecimal valor) {
         this.valor = valor;
+        return this;
+    }
+
+    public Integer getContaPagante() {
+        return contaPagante;
+    }
+
+    public Transferencia setContaPagante(Integer contaPagante) {
+        this.contaPagante = contaPagante;
+        return this;
+    }
+
+    public String getNomePagante() {
+        return nomePagante;
+    }
+
+    public Transferencia setNomePagante(String nomePagante) {
+        this.nomePagante = nomePagante;
+        return this;
+    }
+
+    public Integer getContaBeneficiario() {
+        return contaBeneficiario;
+    }
+
+    public Transferencia setContaBeneficiario(Integer contaBeneficiario) {
+        this.contaBeneficiario = contaBeneficiario;
+        return this;
+    }
+
+    public String getNomeBeneficiario() {
+        return nomeBeneficiario;
+    }
+
+    public Transferencia setNomeBeneficiario(String nomeBeneficiario) {
+        this.nomeBeneficiario = nomeBeneficiario;
         return this;
     }
 }

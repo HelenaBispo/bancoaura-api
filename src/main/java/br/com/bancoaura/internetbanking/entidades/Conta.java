@@ -17,11 +17,14 @@ public class Conta {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente titular;
 
-    @OneToMany(mappedBy = "pagante")
+    @Column(nullable = false)
+    private String hashSenha;
+
+    @OneToMany(mappedBy = "pagante", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Transferencia> transferenciasPagas;
 
-    @OneToMany(mappedBy = "beneficiario")
+    @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Transferencia> transferenciasRecebidas;
 
@@ -56,11 +59,25 @@ public class Conta {
         return id;
     }
 
+    public Conta setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
     public List<Transferencia> getTransferenciasPagas() {
         return transferenciasPagas;
     }
 
     public List<Transferencia> getTransferenciasRecebidas() {
         return transferenciasRecebidas;
+    }
+
+    public String getHashSenha() {
+        return hashSenha;
+    }
+
+    public Conta setHashSenha(String hashSenha) {
+        this.hashSenha = hashSenha;
+        return this;
     }
 }

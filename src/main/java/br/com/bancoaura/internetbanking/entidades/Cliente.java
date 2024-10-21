@@ -1,5 +1,6 @@
 package br.com.bancoaura.internetbanking.entidades;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,16 +12,17 @@ public class Cliente {
     private Integer id;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Telefone> telefones;
-
-    @OneToOne(mappedBy = "titular")
-    private Conta conta;
 
     @Column(nullable = false, length = 80)
     private String nome;
 
     @Column(nullable = false, length = 11, unique = true)
     private String cpf;
+
+    @Column(nullable = false)
+    private String email;
 
     public Cliente setId(Integer id) {
         this.id = id;
@@ -56,5 +58,19 @@ public class Cliente {
 
     public List<Telefone> getTelefones() {
         return telefones;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Cliente setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Cliente [id=%s, nome=%s, cpf=%s]", id, nome, cpf);
     }
 }

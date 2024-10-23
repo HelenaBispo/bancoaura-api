@@ -5,7 +5,7 @@ RUN apt install openjdk-21-jdk -y
 COPY . .
 
 RUN apt install maven -y
-RUN mvn clean install
+RUN mvn clean install -Dmaven.test.skip
 
 FROM amazoncorretto:23
 

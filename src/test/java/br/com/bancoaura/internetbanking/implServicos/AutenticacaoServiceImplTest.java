@@ -31,15 +31,15 @@ class AutenticacaoServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        List<String> telefones = Arrays.asList("83999999999", "84988888888");
-        ClienteDto clienteDto = new ClienteDto()
-                .setCpf("23194509047")
-                .setNome("João Silva")
-                .setTelefones(telefones)
-                .setEmail("joaosilva@gmail.com")
-                .setSenha("12341234");
-
-        contaDto = contaClienteService.criarContaCliente(clienteDto);
+            List<String> telefones = Arrays.asList("83999999999", "84988888888");
+            ClienteDto clienteDto = new ClienteDto()
+                    .setCpf("23194509047")
+                    .setNome("João Silva")
+                    .setTelefones(telefones)
+                    .setEmail("joaosilva@gmail.com")
+                    .setSenha("12341234");
+    
+            contaDto = contaClienteService.criarContaCliente(clienteDto);
     }
 
     @Test
@@ -63,6 +63,7 @@ class AutenticacaoServiceImplTest {
 
     @Test
     @DisplayName("Deve lançar exceção caso a conta não exista")
+    @Transactional
     void testaLancarExcecaoContaNaoExista() {
         assertThrows(
             EntityNotFoundException.class,

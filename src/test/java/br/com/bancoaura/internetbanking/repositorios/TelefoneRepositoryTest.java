@@ -28,7 +28,7 @@ class TelefoneRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Cliente c = new Cliente().setCpf("23194509047").setNome("João Silva").setId(1);
+        Cliente c = new Cliente().setCpf("23194509047").setNome("João Silva").setId(1).setEmail("joaosilva@gmail.com");
         cliente = clienteRepository.save(c);
     }
 

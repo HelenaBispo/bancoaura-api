@@ -27,14 +27,14 @@ class ContaRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Cliente c = new Cliente().setCpf("23194509047").setNome("João Silva").setId(1);
+        Cliente c = new Cliente().setCpf("23194509047").setNome("João Silva").setId(1).setEmail("joaosilva@gmail.com");
         cliente = clienteRepository.save(c);
     }
 
     @Test
     @DisplayName("Deve inserir uma conta relacionada ao cliente")
     void testaCriarConta() {
-        Conta conta = new Conta().setCliente(cliente);
+        Conta conta = new Conta().setCliente(cliente).setHashSenha("teste");
         Conta contaSalva = contaRepository.save(conta);
 
         assertNotNull(contaSalva.getId());
@@ -42,6 +42,7 @@ class ContaRepositoryTest {
         assertEquals(contaSalva.getSaldo(), conta.getSaldo());
         assertTrue(contaSalva.getTransferenciasPagas().isEmpty());
         assertTrue(contaSalva.getTransferenciasRecebidas().isEmpty());
+        assertEquals(contaSalva.getHashSenha(), conta.getHashSenha());
     }
 
     @AfterEach
